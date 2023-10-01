@@ -27,7 +27,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  listen
   rerun
   sinatra (>= 2.0.1)
 
