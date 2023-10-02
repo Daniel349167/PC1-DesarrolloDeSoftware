@@ -89,9 +89,11 @@ cd hw-sinatra-saas-wordguesser
 
 bundle
 ```
+- Clonamos el repositorio correctamente
+
 ![image](https://github.com/Jxtrex/CC3S2-PC1/assets/90808325/168a5c51-e192-41bd-a63b-70379978c80a)
 
-Clonamos el repositorio correctamente
+- Instalamos todas las gemas faltantes
 
 ![image](https://github.com/Jxtrex/CC3S2-PC1/assets/90808325/44f31a1a-c2a7-4799-b6df-4085dfadaf76)
 
