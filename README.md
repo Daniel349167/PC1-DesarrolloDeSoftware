@@ -6,6 +6,7 @@
 - Omar Baldomero Vite Allca
 - Daniel Ureta Espinal
 ***
+## Introducción
 ## Objetivo
 Comprender los pasos necesarios para crear, versionar e implementar una aplicación SaaS, incluido el seguimiento de las librerías de las que depende para que sus entornos de producción y desarrollo sean lo más similares posible.
 
@@ -79,3 +80,13 @@ group :development do
   gem 'rerun'
 end
 ```
+## Parte 1: Wordguesser
+...
+## Parte 2: RESTful para Wordguesser
+...
+## Parte 3: Conexión de WordGuesserGame a Sinatra
+...
+## Parte 4: Cucumber
+...
+## Parte 5: Otros casos
+...
