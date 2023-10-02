@@ -99,6 +99,26 @@ bundle
 
 Instalamos todas las gemas faltantes
 
+En el directorio raíz de la aplicación, escribe `bundle exec autotest`
+
+![image](https://github.com/Jxtrex/CC3S2-PC1/assets/90808325/f8ab2131-9a3b-4ed3-bf8a-db61d58c2e6b)
+
+Ahora, con Autotest aun ejecutándose, elimina `:pending => true` y guarde el archivo. Deberías ver inmediatamente que Autotest se activa y vuelve a ejecutar las pruebas. Ahora debería tener 18 ejemplos, 1 fallido y 17 pendientes
+
+Eliminamos :pending => true en cada especificacion (spec)
+
+```ruby
+  describe 'new' , :pending => true do
+    it "takess a parameter and returns a WordGuesserGame object" do      
+      @game = WordGuesserGame.new('glorp')
+      expect(@game).to be_an_instance_of(WordGuesserGame)
+      expect(@game.word).to eq('glorp')
+      expect(@game.guesses).to eq('')
+      expect(@game.wrong_guesses).to eq('')
+    end
+  end
+
+```
 ## Parte 2: RESTful para Wordguesser
 ...
 ## Parte 3: Conexión de WordGuesserGame a Sinatra
