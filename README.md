@@ -254,6 +254,7 @@ describe WordGuesserGame do
   end
 end
 ```
+***
 Preguntas
 
 Según los casos de prueba, ¿cuántos argumentos espera el constructor de la clase de juegos (identifica la clase) y, por lo tanto, cómo será la primera línea de la definición del método que debes agregar a `wordguesser_game.rb`?
@@ -274,17 +275,26 @@ def initialize
 end 
 ```
 
-Esto garantiza que el constructor no espere ningún argumento al crear una nueva instancia de `WordGuesserGame`. 
+Esto garantiza que el constructor no espere ningún argumento al crear una nueva instancia de `WordGuesserGame`.
+***
 
 Según las pruebas de este bloque describe, ¿qué variables de instancia se espera que tenga `WordGuesserGame`?
 
 Se espera que las variables de instancia `@word, @guesses, y @wrong_guesses` existan y estén inicializadas correctamente cuando se crea una nueva instancia de `WordGuesserGame`. 
+
+***
 
 Echa un vistazo al código del método de clase `get_random_word`, que recupera una palabra aleatoria de un servicio web que encontramos que hace precisamente eso. Utiliza el siguiente comando para verificar que el servicio web funcione así. Ejecútalo varias veces para verificar que obtengas palabras diferentes.
 
 ```bash
 $ curl --data '' http://randomword.saasbook.info/RandomWord
 ```
+
+Lo ejecutamos 3 veces y obtenemos las palabras scrawny, tricky y habitual
+
+![image](https://github.com/Jxtrex/CC3S2-PC1/assets/90808325/1b343ba6-7413-4250-898a-09f16bf191ee)
+
+***
 ## Parte 2: RESTful para Wordguesser
 ...
 ## Parte 3: Conexión de WordGuesserGame a Sinatra
