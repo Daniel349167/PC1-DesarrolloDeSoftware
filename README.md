@@ -2,7 +2,7 @@
 ***
 ## Integrantes
 - Juan de Dios Fernando Lerzundi Ríos
-- José Daniel Zapata Anco
+- José Daniel Zapata Ancco
 - Omar Baldomero Vite Allca
 - Daniel Ureta Espinal
 ***
@@ -105,7 +105,7 @@ En el directorio raíz de la aplicación, escribe `bundle exec autotest`
 
 Ahora, con Autotest aun ejecutándose, elimina `:pending => true` y guarde el archivo. Deberías ver inmediatamente que Autotest se activa y vuelve a ejecutar las pruebas. Ahora debería tener 18 ejemplos, 1 fallido y 17 pendientes
 
-Eliminamos :pending => true en cada especificacion (spec)
+Eliminamos `:pending => true` en cada especificacion (spec)
 
 ```ruby
   describe 'new' , :pending => true do
@@ -122,11 +122,11 @@ Eliminamos :pending => true en cada especificacion (spec)
 ....
 ```
 
-![image](https://github.com/Jxtrex/CC3S2-PC1/assets/90808325/9b816672-c064-4e13-847a-0e6407ac5cac)
-
 Ahora debería tener 18 ejemplos, 1 fallido y 17 pendientes.
 
 ![image](https://github.com/Jxtrex/CC3S2-PC1/assets/90808325/c3b0b5f5-54b3-4013-933c-5702d517bb54)
+
+Nuestro código quedaría de esta manera:
 
 ```ruby
 require 'spec_helper'
@@ -280,6 +280,11 @@ Según las pruebas de este bloque describe, ¿qué variables de instancia se esp
 
 Se espera que las variables de instancia `@word, @guesses, y @wrong_guesses` existan y estén inicializadas correctamente cuando se crea una nueva instancia de `WordGuesserGame`. 
 
+Echa un vistazo al código del método de clase `get_random_word`, que recupera una palabra aleatoria de un servicio web que encontramos que hace precisamente eso. Utiliza el siguiente comando para verificar que el servicio web funcione así. Ejecútalo varias veces para verificar que obtengas palabras diferentes.
+
+```bash
+$ curl --data '' http://randomword.saasbook.info/RandomWord
+```
 ## Parte 2: RESTful para Wordguesser
 ...
 ## Parte 3: Conexión de WordGuesserGame a Sinatra
