@@ -157,6 +157,17 @@ Esto garantiza que el constructor no espere ningún argumento al crear una nueva
 
 Se espera que las variables de instancia @word, @guesses, y @wrong_guesses existan y estén inicializadas correctamente cuando se crea una nueva instancia de WordGuesserGame. 
 ***
+Depuración
+
+Ejecutamos este comando para verificar si está recibiendo palabras aleatorias:
+```bash
+$ curl --data '' http://randomword.saasbook.info/RandomWord
+```
+Lo ejecutamos 3 veces y obtenemos las palabras furniture, mountain y uncovered. Lo cual significa que funciona perfectamente.
+
+![image](https://github.com/Jxtrex/CC3S2-PC1/assets/90808325/e395b849-89e6-41c3-a06c-615fac157be2)
+
+***
 ## Parte 2: RESTful para Wordguesser
 Wordguesser siguiendo los principios RESTful, la aplicación utilizará rutas y solicitudes HTTP (como GET, POST, PUT, DELETE) de una manera coherente y predecible para realizar operaciones en recursos específicos, como palabras, usuarios, juegos, etc.
 ***
@@ -245,7 +256,6 @@ En aplicaciones web basadas en SaaS (Software as a Service), se utiliza comúnme
 
 - El estado actual del juego: Es necesario conocer el estado actual del juego para determinar si el jugador ha ganado, perdido o si el juego está en curso. Esto podría representarse como un valor o una variable que indica si el juego está en curso, ganado o perdido. 
 
-- Puntuación (opcional): Si deseas llevar un registro de la puntuación del jugador o implementar un sistema de puntaje, también debes incluir la puntuación en el estado del juego.
 ***
 **El juego como recurso RESTful**
 
