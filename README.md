@@ -414,7 +414,7 @@ En el código guess en el archivo Sinatra app.rb, debes:
 - Redirige a la acción show para que el jugador pueda ver el resultado de su adivinación. 
 
 ```Ruby
-post '/guess' do
+  post '/guess' do
     letter = params[:guess].to_s[0]
     if @game.guess(letter)
       redirect '/show'
@@ -442,24 +442,13 @@ Utilizaremos este proceso para desarrollar el código para las acciones restante
 - Navigate to lose page
 - Navigate to win page
 
-Para evitar que el usuario haga trampas simplemente visitando GET/win vamos a crear un estado que indica si el juego ha terminado o no. Entonces modificamos el archivo app.rb
-
-```Ruby
-before do
-  @game = session[:game] || WordGuesserGame.new('')
-  @game_over = false
-end
-```
-
-Ahora nos aseguramos que en caso se gane o se pierda la partida el juego sea terminado
+Para evitar que el usuario haga trampas simplemente visitando GET/win vamos a verificar si el juego ha terminado o no. Entonces modificamos el archivo app.rb
 
 ```Ruby
   get '/show' do
     if @game.check_win_or_lose == :win
-      @game_over = true
       redirect '/win'
     elsif @game.check_win_or_lose == :lose
-      @game_over = true
       redirect '/lose'
     else
       erb :show
@@ -469,18 +458,21 @@ Ahora nos aseguramos que en caso se gane o se pierda la partida el juego sea ter
 Modificamos los métodos GET/win y GET/lose para evitar trampas por parte del usuario
 ```Ruby
   get '/win' do
-    if @game_over == false
+    if @game.check_win_or_lose == :win
+      erb :win
+    else
       flash[:message] = "No hagas trampa :3"
       redirect '/show'
     end
-    erb :win
   end
-  
+
   get '/lose' do
-    if @game_over == false
+    if @game.check_win_or_lose == :lose
+      erb :lose
+    else
+      flash[:message] = "Por qué quieres perder? :c"
       redirect '/show'
     end
-    erb :lose
   end
 ```
 

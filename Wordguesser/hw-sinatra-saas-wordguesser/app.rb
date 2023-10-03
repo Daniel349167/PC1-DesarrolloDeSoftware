@@ -34,7 +34,6 @@ class WordGuesserApp < Sinatra::Base
     letter = params[:guess].to_s[0]
     if letter.nil? || letter.empty? || !letter.match?(/[A-Za-z]/)
       flash[:message] = "Invalid guess."
-      redirect '/show'
     elsif @game.guess(letter)
       redirect '/show'
     else
