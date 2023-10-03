@@ -158,6 +158,7 @@ Esto garantiza que el constructor no espere ningún argumento al crear una nueva
 Se espera que las variables de instancia @word, @guesses, y @wrong_guesses existan y estén inicializadas correctamente cuando se crea una nueva instancia de WordGuesserGame. 
 ***
 ## Parte 2: RESTful para Wordguesser
+Wordguesser siguiendo los principios RESTful, la aplicación utilizará rutas y solicitudes HTTP (como GET, POST, PUT, DELETE) de una manera coherente y predecible para realizar operaciones en recursos específicos, como palabras, usuarios, juegos, etc.
 ***
 **1. ¿Cuál es el estado total necesario para que la siguiente solicitud HTTP continúe el juego donde lo dejó la solicitud anterior?**
 
@@ -167,15 +168,67 @@ En nuestra aplicación, el estado total necesario para continuar el juego se alm
 
 GET /new: Inicia un nuevo juego. Cuando un usuario accede a esta ruta, se crea una nueva instancia de WordGuesserGame, y la información de este juego se almacena en la sesión del usuario. Esto se maneja en la acción get '/new'. 
 
+```ruby
+  get '/new' do
+    erb :new
+  end
+```
 POST /create: Permite al usuario ingresar una palabra para adivinar o generar una palabra aleatoria. La acción post '/create' toma la palabra ingresada o generada y crea una nueva instancia del juego con esa palabra. 
-
+```ruby
+  post '/create' do
+    word = params[:word] || WordGuesserGame.get_random_word
+    @game = WordGuesserGame.new(word)
+    redirect '/show'
+  end
+```
 POST /guess: Permite al usuario adivinar una letra. Cuando se envía un formulario de adivinanza, la acción post '/guess' recibe la letra adivinada y la agrega al juego. Dependiendo de si la suposición es correcta o incorrecta, se redirige al usuario a la vista correspondiente. 
-
+```ruby
+  post '/guess' do
+    letter = params[:guess].to_s[0]
+    if letter.nil? || letter.empty? || !letter.match?(/[A-Za-z]/)
+      flash[:message] = "Invalid guess."
+    elsif @game.guess(letter)
+      redirect '/show'
+    else
+      flash[:message] = "You have already used that letter"
+      redirect '/show'
+    end
+  end
+```
 GET /show: Muestra el estado actual del juego. Cuando un usuario accede a esta ruta, se verifica si el juego está en curso, ganado o perdido, y se muestra la vista correspondiente con la información actual del juego. 
-
+```ruby
+  get '/show' do
+    if @game.check_win_or_lose == :win
+      @game_over = true
+      redirect '/win'
+    elsif @game.check_win_or_lose == :lose
+      @game_over = true
+      redirect '/lose'
+    else
+      erb :show
+    end
+  end
+```
 GET /win: Muestra la página de victoria. Cuando el juego se gana, se redirige al usuario a esta vista para mostrar que ha ganado el juego. 
-
+```ruby
+  get '/win' do
+    if @game_over == false
+      flash[:message] = "No hagas trampa :3"
+      redirect '/show'
+    end
+    erb :win
+  end
+```
 GET /lose: Muestra la página de derrota. Cuando el juego se pierde, se redirige al usuario a esta vista para mostrar que ha perdido el juego. 
+```ruby
+  get '/lose' do
+    if @game_over == false
+      redirect '/show'
+    end
+    erb :lose
+  end
+end
+```
 ***
 
 En aplicaciones web basadas en SaaS (Software as a Service), se utiliza comúnmente una cookie como mecanismo para mantener el estado entre el navegador del usuario y el servidor. Una cookie es un pequeño fragmento de información que el servidor puede almacenar en el navegador del usuario y que el navegador promete enviar de vuelta al servidor en cada solicitud subsiguiente. Cada usuario tiene su propia cookie, lo que permite mantener el estado de forma efectiva para cada usuario.
