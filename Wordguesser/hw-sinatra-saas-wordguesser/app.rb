@@ -10,6 +10,7 @@ class WordGuesserApp < Sinatra::Base
   
   before do
     @game = session[:game] || WordGuesserGame.new('')
+    @game_over = false
   end
   
   after do
@@ -32,18 +33,22 @@ class WordGuesserApp < Sinatra::Base
   
   post '/guess' do
     letter = params[:guess].to_s[0]
-    if @game.guess(letter)
+    if letter.nil? || letter.empty? || !letter.match?(/[A-Za-z]/)
+      flash[:message] = "Invalid guess."
+    elsif @game.guess(letter)
       redirect '/show'
     else
-      flash[:message] = "Invalid guess."
+      flash[:message] = "You have already used that letter"
       redirect '/show'
     end
   end
   
   get '/show' do
     if @game.check_win_or_lose == :win
+      @game_over = true
       redirect '/win'
     elsif @game.check_win_or_lose == :lose
+      @game_over = true
       redirect '/lose'
     else
       erb :show
@@ -51,10 +56,17 @@ class WordGuesserApp < Sinatra::Base
   end
   
   get '/win' do
+    if @game_over == false
+      flash[:message] = "No hagas trampa :3"
+      redirect '/show'
+    end
     erb :win
   end
   
   get '/lose' do
+    if @game_over == false
+      redirect '/show'
+    end
     erb :lose
   end
 end

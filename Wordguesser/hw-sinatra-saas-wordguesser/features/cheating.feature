@@ -1,8 +1,8 @@
 Feature: gain access to the word without guessing it
 
-    As a adversary playing Wordguesser
-    So that I can see the word without ever entering a letter
-    I want to navigate to a ending page and see the word
+  As a adversary playing Wordguesser
+  So that I can see the word without ever entering a letter
+  I want to navigate to a ending page and see the word
 
 Scenario: navigate to lose page
   Given I start a new game with word "snake"

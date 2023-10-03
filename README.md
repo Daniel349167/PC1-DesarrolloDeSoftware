@@ -246,4 +246,94 @@ cucumber features/guess.feature
 ```
 ***
 ## Parte 5: Otros casos
+Utilizaremos este proceso para desarrollar el código para las acciones restantes, win y lose.
+
+1. Escoge un nuevo escenario para trabajar
+2. Ejecuta el escenario y observa cómo falla
+3. Desarrollar código que haga pasar cada paso del escenario.
+4. Repita hasta que pasen todos los pasos.
+
+**Cheating Feature / Scenarios**
+
+- Navigate to lose page
+- Navigate to win page
+
+Para evitar que el usuario haga trampas simplemente visitando GET/win vamos a crear un estado que indica si el juego ha terminado o no. Entonces modificamos el archivo app.rb
+
+```Ruby
+before do
+  @game = session[:game] || WordGuesserGame.new('')
+  @game_over = false
+end
+```
+
+Ahora nos aseguramos que en caso se gane o se pierda la partida el juego sea terminado
+
+```Ruby
+  get '/show' do
+    if @game.check_win_or_lose == :win
+      @game_over = true
+      redirect '/win'
+    elsif @game.check_win_or_lose == :lose
+      @game_over = true
+      redirect '/lose'
+    else
+      erb :show
+    end
+  end
+```
+Modificamos los métodos GET/win y GET/lose para evitar trampas por parte del usuario
+```Ruby
+  get '/win' do
+    if @game_over == false
+      flash[:message] = "No hagas trampa :3"
+      redirect '/show'
+    end
+    erb :win
+  end
+  
+  get '/lose' do
+    if @game_over == false
+      redirect '/show'
+    end
+    erb :lose
+  end
+```
+
+**Repeated Guess Feature / Scenarios**
+
+- Guess correct letter that I have already tried
+- Guess incorrect letter that I have already tried
+- Guessing an incorrect letter does not count towards guesses
+
+```Ruby
+  post '/guess' do
+    letter = params[:guess].to_s[0]
+    if @game.guess(letter)
+      redirect '/show'
+    else
+      flash[:message] = "You have already used that letter"
+      redirect '/show'
+    end
+  end
+```
+
+**Invalid Guess Feature / Scenarios**
+
+- Guess an empty guess
+- Guess a noncharacter guess
+
+```Ruby
+  post '/guess' do
+    letter = params[:guess].to_s[0]
+    if letter.nil? || letter.empty? || !letter.match?(/[A-Za-z]/)
+      flash[:message] = "Invalid guess."
+    elsif @game.guess(letter)
+      redirect '/show'
+    else
+      flash[:message] = "You have already used that letter"
+      redirect '/show'
+    end
+  end
+```
 
