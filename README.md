@@ -253,11 +253,17 @@ Pregunta
 
 **Enumera las acciones del jugador que podrían provocar cambios en el estado del juego.**
 
-1. Iniciar un nuevo juego 
+1. Iniciar un nuevo juego
+   
+   ![image](https://github.com/Jxtrex/CC3S2-PC1/assets/90808325/07d57266-a3f2-431b-a792-53ffe7354bc3)
 
-2. Realizar una suposición 
+2. Realizar una suposición
+   
+![image](https://github.com/Jxtrex/CC3S2-PC1/assets/90808325/bac8271b-d744-4256-bdc5-614e9ac13487)
 
 3. Ver el estado actual del juego 
+
+![image](https://github.com/Jxtrex/CC3S2-PC1/assets/90808325/f75c0d7b-67f2-4806-98ad-48d504271c83)
 
 4. Ganar el juego 
 
