@@ -2,15 +2,15 @@
 ***
 ## Integrantes
 - Juan de Dios Fernando Lerzundi Ríos
-- José Daniel Zapata Ancco
+- José Daniel Zapata Anco
 - Omar Baldomero Vite Allca
 - Daniel Ureta Espinal
 ***
 ## Introducción
-## Objetivo
+**Objetivo**
 Comprender los pasos necesarios para crear, versionar e implementar una aplicación SaaS, incluido el seguimiento de las librerías de las que depende para que sus entornos de producción y desarrollo sean lo más similares posible.
 
-## Creación y Versionado de una aplicación SaaS
+**Creación y Versionado de una aplicación SaaS**
 - Crear un nuevo directorio y versionarlo con git
 ```bash
 git init
@@ -80,6 +80,7 @@ group :development do
   gem 'rerun'
 end
 ```
+***
 ## Parte 1: Wordguesser
 Con toda esta maquinaria en mente, clona este repositorio y trabajemos el juego de adivinar palabras (Wordguesser).
 ```bash
@@ -105,7 +106,7 @@ En el directorio raíz de la aplicación, escribe `bundle exec autotest`
 
 Ahora, con Autotest aun ejecutándose, elimina `:pending => true` y guarde el archivo. Deberías ver inmediatamente que Autotest se activa y vuelve a ejecutar las pruebas. Ahora debería tener 18 ejemplos, 1 fallido y 17 pendientes
 
-Eliminamos `:pending => true` en cada especificacion (spec)
+Eliminamos :pending => true en cada especificacion (spec)
 
 ```ruby
   describe 'new' , :pending => true do
@@ -117,189 +118,132 @@ Eliminamos `:pending => true` en cada especificacion (spec)
       expect(@game.wrong_guesses).to eq('')
     end
   end
-....
-#Continúa el código
-....
+
 ```
-
-Ahora debería tener 18 ejemplos, 1 fallido y 17 pendientes.
-
-![image](https://github.com/Jxtrex/CC3S2-PC1/assets/90808325/c3b0b5f5-54b3-4013-933c-5702d517bb54)
-
-Nuestro código quedaría de esta manera:
-
-```ruby
-require 'spec_helper'
-require 'wordguesser_game'
-
-describe WordGuesserGame do
-  # helper function: make several guesses
-  def guess_several_letters(game, letters)
-    letters.chars do |letter|
-      game.guess(letter)
-    end
-  end
-
-  describe 'new' do
-    it "takess a parameter and returns a WordGuesserGame object" do      
-      @game = WordGuesserGame.new('glorp')
-      expect(@game).to be_an_instance_of(WordGuesserGame)
-      expect(@game.word).to eq('glorp')
-      expect(@game.guesses).to eq('')
-      expect(@game.wrong_guesses).to eq('')
-    end
-  end
-
-  describe 'guessing' do
-    context 'correctly' do
-      before :each do
-        @game = WordGuesserGame.new('garply')
-        @valid = @game.guess('a')
-      end
-      it 'changes correct guess list', :pending => true do
-        expect(@game.guesses).to eq('a')
-        expect(@game.wrong_guesses).to eq('')
-      end
-      it 'returns true' do
-        expect(@valid).not_to be false
-      end
-    end
-    context 'incorrectly' do
-      before :each do
-        @game = WordGuesserGame.new('garply')
-        @valid = @game.guess('z')
-      end
-      it 'changes wrong guess list' do
-        expect(@game.guesses).to eq('')
-        expect(@game.wrong_guesses).to eq('z')
-      end
-      it 'returns true' do
-        expect(@valid).not_to be false
-      end
-    end
-    context 'same letter repeatedly' do
-      before :each do
-        @game = WordGuesserGame.new('garply')
-        guess_several_letters(@game, 'aq')
-      end
-      it 'does not change correct guess list' do
-        @game.guess('a')
-        expect(@game.guesses).to eq('a')
-      end
-      it 'does not change wrong guess list' do
-        @game.guess('q')
-        expect(@game.wrong_guesses).to eq('q')
-      end
-      it 'returns false' do
-        expect(@game.guess('a')).to be false
-        expect(@game.guess('q')).to be false
-      end
-      it 'is case insensitive' do
-        expect(@game.guess('A')).to be false
-        expect(@game.guess('Q')).to be false
-        expect(@game.guesses).not_to include('A')
-        expect(@game.wrong_guesses).not_to include('Q')
-      end
-    end
-    context 'invalid' do
-      before :each do
-        @game = WordGuesserGame.new('foobar')
-      end
-      it 'throws an error when empty' do
-        expect { @game.guess('') }.to raise_error(ArgumentError)
-      end
-      it 'throws an error when not a letter' do
-        expect { @game.guess('%') }.to raise_error(ArgumentError)
-      end
-      it 'throws an error when nil'do
-        expect { @game.guess(nil) }.to raise_error(ArgumentError)
-      end
-    end
-  end
-
-  describe 'displayed word with guesses'do
-    before :each do
-      @game = WordGuesserGame.new('banana')
-    end
-    # for a given set of guesses, what should the word look like?
-    @test_cases = {
-      'bn' =>  'b-n-n-',
-      'def' => '------',
-      'ban' => 'banana'
-    }
-    @test_cases.each_pair do |guesses, displayed|
-      it "should be '#{displayed}' when guesses are '#{guesses}'" do
-        guess_several_letters(@game, guesses)
-        expect(@game.word_with_guesses).to eq(displayed)
-      end
-    end
-  end
-
-  describe 'game status' do
-    before :each do 
-      @game = WordGuesserGame.new('dog')
-    end
-    it 'should be win when all letters guessed' do
-      guess_several_letters(@game, 'ogd')
-      expect(@game.check_win_or_lose).to eq(:win)
-    end
-    it 'should be lose after 7 incorrect guesses' do
-      guess_several_letters(@game, 'tuvwxyz')
-      expect(@game.check_win_or_lose).to eq(:lose)
-    end
-    it 'should continue play if neither win nor lose' do
-      guess_several_letters(@game, 'do')
-      expect(@game.check_win_or_lose).to eq(:play)
-    end
-  end
-end
-```
-***
-Preguntas
-
-Según los casos de prueba, ¿cuántos argumentos espera el constructor de la clase de juegos (identifica la clase) y, por lo tanto, cómo será la primera línea de la definición del método que debes agregar a `wordguesser_game.rb`?
-
-El constructor de la clase `WordGuesserGame` no espera ningún argumento, ya que en la prueba de `"new"`, se crea una nueva instancia de `WordGuesserGame` de la siguiente manera: 
-
-```ruby
-@game = WordGuesserGame.new('glorp') 
-```
-
-Sin embargo, para que el constructor no espere ningún argumento, se debe modificar la definición del constructor en el archivo `wordguesser_game.rb` como se mencionó anteriormente: 
-
-```ruby
-def initialize 
-
-  # Código para inicializar las variables de instancia 
-
-end 
-```
-
-Esto garantiza que el constructor no espere ningún argumento al crear una nueva instancia de `WordGuesserGame`.
-***
-
-Según las pruebas de este bloque describe, ¿qué variables de instancia se espera que tenga `WordGuesserGame`?
-
-Se espera que las variables de instancia `@word, @guesses, y @wrong_guesses` existan y estén inicializadas correctamente cuando se crea una nueva instancia de `WordGuesserGame`. 
-
-***
-
-Echa un vistazo al código del método de clase `get_random_word`, que recupera una palabra aleatoria de un servicio web que encontramos que hace precisamente eso. Utiliza el siguiente comando para verificar que el servicio web funcione así. Ejecútalo varias veces para verificar que obtengas palabras diferentes.
-
-```bash
-$ curl --data '' http://randomword.saasbook.info/RandomWord
-```
-
-Lo ejecutamos 3 veces y obtenemos las palabras scrawny, tricky y habitual
-
-![image](https://github.com/Jxtrex/CC3S2-PC1/assets/90808325/1b343ba6-7413-4250-898a-09f16bf191ee)
-
 ***
 ## Parte 2: RESTful para Wordguesser
-...
+***
 ## Parte 3: Conexión de WordGuesserGame a Sinatra
-...
+***
 ## Parte 4: Cucumber
-...
+Cucumber es una herramienta extraordinaria para redactar pruebas de aceptación e integración de alto nivel.
+
+**¿Qué pasos utiliza Capybara para simular el servidor como lo haría un navegador y para inspeccionar la respuesta de la aplicación al estímulo?**
+1. Inicia el servidor de pruebas con webrick
+2. Emula la interacción del usuario
+3. Visita la URL con `visit 'url'`
+4. Interactua con la página mediante métodos como `click_link` , `click_button`, `fill_in`
+5. Esperas explicitas que determinan cuando realizar acciones `expect(page).to have_content 'Success'`
+6. Cierre del navegador y limpieza de cualquier estado alterado
+
+**Mirando features/guess.feature, ¿Cuál es la función de las tres líneas que siguen al encabezado "Feature:"?**
+
+- `As a player playing Wordguesser`
+Describe el rol del usuario o del actor que está interactuando con el juego wordguesser
+- `So that I can make progress toward the goal`
+Esta línea explica el por qué esta funcionalidad es importante desde el punto de vista del usuario.
+- `I want to see when my guess is correct`
+Especifica lo que se desea visualizar al finalizar el intento de adivinanza.
+
+**Observando el paso del escenario Given I start a new game with word "garply" qué líneas en game_steps.rb se invocarán cuando Cucumber intente ejecutar este paso y cuál es el papel de la cadena "garply" en el paso?**
+
+En el escenario dado
+```
+Given I start a new game with word "garply"
+```
+Las siguientes lineas son las que se invocarán cuando Cucumber trate de ejecutar este paso por que la cadena "garply" es un parámetro capturado por el grupo de captura (.*) en la expresión regular asociada con el paso. 
+```Ruby
+When /^I start a new game with word "(.*)"$/ do |word|
+  stub_request(:post, "http://randomword.saasbook.info/RandomWord").
+    to_return(:status => 200, :headers => {}, :body => word)
+  visit '/new'
+  click_button "New Game"
+end
+```
+La variable word se utiliza para capturar y almacenar la palabra proporcionada en el escenario para que pueda ser utilizada en la simulación de la respuesta del servidor y en la configuración del juego en la prueba de Cucumber.
+ 
+**Cuando el "simulador de navegador" en Capybara emite la solicitud de visit '/new', Capybara realizará un HTTP GET a la URL parcial /new en la aplicación. ¿Por qué crees que visit siempre realiza un GET, en lugar de dar la opción de realizar un GET o un POST en un paso determinado?**
+
+Las pruebas de integración, incluidas las pruebas de comportamiento, están diseñadas para probar la aplicación desde la perspectiva del usuario final. En este contexto, las acciones del usuario, como hacer clic en enlaces, enviar formularios y escribir en la barra de direcciones del navegador, se modelan a través de solicitudes HTTP GET. Cuando un usuario normalmente visita una página web, lo hace utilizando un GET para recuperar recursos y mostrar información en el navegador.
+
+>Al evitar solicitudes POST directas en las pruebas de comportamiento, se mantiene un enfoque más observacional y menos manipulativo en las pruebas.
+
+Ejecutamos el escenario de "new game" con:
+
+```shell
+cucumber features/start_new_game.feature
+```
+Nos da como resultado:
+
+```shell
+Feature: start new game
+  As a player
+  So I can play Wordguesser
+  I want to start a new game
+
+  Scenario: I start a new game         # features/start_new_game.feature:7
+    Given I am on the home page        # features/step_definitions/game_steps.rb:61
+    And I press "New Game"             # features/step_definitions/game_steps.rb:74
+    Then I should see "Guess a letter" # features/step_definitions/game_steps.rb:70
+      expected to find text "Guess a letter" in "Not Found" (RSpec::Expectations::ExpectationNotMetError)      
+      ./features/step_definitions/game_steps.rb:71:in `/^(?:|I )should see "([^\"]*)"(?: within "([^\"]*)")?$/'
+      features/start_new_game.feature:11:in `I should see "Guess a letter"'
+    And I press "New Game"             # features/step_definitions/game_steps.rb:74
+    Then I should see "Guess a letter" # features/step_definitions/game_steps.rb:70
+
+Failing Scenarios:
+cucumber features/start_new_game.feature:7 # Scenario: I start a new game
+
+1 scenario (1 failed)
+5 steps (1 failed, 2 skipped, 2 passed)
+```
+
+El escenario falla porque la etiqueta `form` en views/new.erb es incorrecta y está incompleta en la información que le dice al navegador en qué URL publicar el formulario por lo que la solución sería
+
+```Ruby
+<form action="/create" method="post">
+  <div class="form-row py-3 border-top">
+    <input type="submit" value="New Game" class="col-md-2 offset-md-5 btn btn-primary form-control"/>
+  </div>
+</form>
+```
+**¿Cuál es el significado de usar Given versus When versus Them en el archivo de características? ¿Qué pasa si los cambias? Realiza un experimento sencillo para averiguarlo y luego confirme los resultados utilizando Google.**
+- Given: Esta palabra clave se utiliza para establecer el estado inicial del escenario. Especifica las condiciones previas para realizar las acciones del escenario. 
+
+- When: La palabra clave When se utiliza para describir la acción o el evento que desencadena el escenario. Representa la acción que el usuario realiza.
+
+- Then: La palabra clave Then se utiliza para describir el resultado o la consecuencia esperada después de que se haya realizado la acción especificada en la sección When.
+
+**En game_steps.rb, mira el código del paso "I start a new game..." y, en particular, el comando stub_request. Dada la pista de que ese comando lo proporciona una gema (biblioteca) llamada webmock, ¿Qué sucede con esa línea y por qué es necesaria?.**
+
+Es utilizada para simular solicitudes HTTP durante las pruebas. Esta gema te permite simular el comportamiento de las solicitudes HTTP sin realizar realmente peticiones a un servidor externo. En otras palabras, puedes "fingir" que una solicitud real ha ocurrido y definir cómo debería comportarse el servidor en respuesta a esa solicitud simulada. 
+
+Cuando se hace esta solicitud simulada, en lugar de realizar una solicitud real a esa URL, WebMock intercepta la solicitud y devuelve la respuesta especificada en `to_return(:status => 200, :headers => {}, :body => word)`.
+
+**En tu código Sinatra para procesar una adivinación, ¿qué expresión usaría para extraer 'solo el primer carácter' de lo que el usuario escribió en el campo de adivinación de letras del formulario en show.erb?**
+
+/^./ Es la expresión regular que devuelve el primer caracter o también convertirlo a string y llamar al primer elemento
+
+En el código guess en el archivo Sinatra app.rb, debes:
+- Extrae la letra enviada en el formulario. (dado arriba y en el código)
+- Utiliza esa letra para adivinar el juego actual. (agrega este código)
+- Redirige a la acción show para que el jugador pueda ver el resultado de su adivinación. 
+
+```Ruby
+post '/guess' do
+    letter = params[:guess].to_s[0]
+    if @game.guess(letter)
+      redirect '/show'
+    else
+      flash[:message] = "Invalid guess."
+      redirect '/show'
+    end
+  end
+```
+Verificamos que todos los pasos en feature/guess.feature pasen ejecutandose cucumber
+```shell
+cucumber features/guess.feature
+```
+***
 ## Parte 5: Otros casos
-...
+
