@@ -130,7 +130,7 @@ Inmediatamente Autotest reacciona y nos ejecuta esto:
 El bloque describe ‘new’ significa "el siguiente bloque de pruebas describe el comportamiento de una 'nueva' instancia de WordGuesserGame". La línea WordGuesserGame.new hace que se cree una nueva instancia y las siguientes líneas verifican la presencia y los valores de las variables de instancia. 
 
 ***
-Preguntas 
+**Preguntas** 
 
 Según los casos de prueba, ¿cuántos argumentos espera el constructor de la clase de juegos (identifica la clase) y, por lo tanto, cómo será la primera línea de la definición del método que debes agregar a wordguesser_game.rb? 
 
@@ -153,7 +153,7 @@ Esto garantiza que el constructor no espere ningún argumento al crear una nueva
 
  ***
 
-Según las pruebas de este bloque describe, ¿qué variables de instancia se espera que tenga WordGuesserGame? 
+**Según las pruebas de este bloque describe, ¿qué variables de instancia se espera que tenga WordGuesserGame?**
 
 Se espera que las variables de instancia @word, @guesses, y @wrong_guesses existan y estén inicializadas correctamente cuando se crea una nueva instancia de WordGuesserGame. 
 ***
