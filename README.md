@@ -159,6 +159,80 @@ Se espera que las variables de instancia @word, @guesses, y @wrong_guesses exist
 ***
 ## Parte 2: RESTful para Wordguesser
 ***
+**1. ¿Cuál es el estado total necesario para que la siguiente solicitud HTTP continúe el juego donde lo dejó la solicitud anterior?**
+
+En nuestra aplicación, el estado total necesario para continuar el juego se almacena en una instancia de la clase WordGuesserGame, que es la representación del juego. Esta instancia se almacena en la sesión del usuario para que pueda ser accedida en diferentes solicitudes HTTP. Los elementos clave de estado incluyen la palabra a adivinar, las letras adivinadas correctamente, las letras adivinadas incorrectamente y el estado actual del juego (ganar, perder o jugar). 
+***
+**2. ¿Cuáles son las diferentes acciones del juego y cómo deberían corresponderse las solicitudes HTTP con esas acciones?** 
+
+GET /new: Inicia un nuevo juego. Cuando un usuario accede a esta ruta, se crea una nueva instancia de WordGuesserGame, y la información de este juego se almacena en la sesión del usuario. Esto se maneja en la acción get '/new'. 
+
+POST /create: Permite al usuario ingresar una palabra para adivinar o generar una palabra aleatoria. La acción post '/create' toma la palabra ingresada o generada y crea una nueva instancia del juego con esa palabra. 
+
+POST /guess: Permite al usuario adivinar una letra. Cuando se envía un formulario de adivinanza, la acción post '/guess' recibe la letra adivinada y la agrega al juego. Dependiendo de si la suposición es correcta o incorrecta, se redirige al usuario a la vista correspondiente. 
+
+GET /show: Muestra el estado actual del juego. Cuando un usuario accede a esta ruta, se verifica si el juego está en curso, ganado o perdido, y se muestra la vista correspondiente con la información actual del juego. 
+
+GET /win: Muestra la página de victoria. Cuando el juego se gana, se redirige al usuario a esta vista para mostrar que ha ganado el juego. 
+
+GET /lose: Muestra la página de derrota. Cuando el juego se pierde, se redirige al usuario a esta vista para mostrar que ha perdido el juego. 
+***
+
+En aplicaciones web basadas en SaaS (Software as a Service), se utiliza comúnmente una cookie como mecanismo para mantener el estado entre el navegador del usuario y el servidor. Una cookie es un pequeño fragmento de información que el servidor puede almacenar en el navegador del usuario y que el navegador promete enviar de vuelta al servidor en cada solicitud subsiguiente. Cada usuario tiene su propia cookie, lo que permite mantener el estado de forma efectiva para cada usuario.
+
+**Pregunta Enumera el estado mínimo del juego que se debe mantener durante una partida de Wordguesser.**
+
+- El estado mínimo del juego que se debe mantener durante una partida de Wordguesser incluye: 
+
+- La palabra a adivinar: Es esencial mantener un registro de la palabra que el jugador debe adivinar. Esta palabra puede ser almacenada como una cadena de caracteres. 
+
+- Las letras adivinadas correctamente: Se necesita un registro de las letras que el jugador ha adivinado correctamente en la palabra. Esto se puede mantener como una cadena de caracteres o una lista de letras. 
+
+- Las letras adivinadas incorrectamente: Debe llevarse un registro de las letras que el jugador ha adivinado incorrectamente en la palabra. Esto también se puede mantener como una cadena de caracteres o una lista de letras. 
+
+- El estado actual del juego: Es necesario conocer el estado actual del juego para determinar si el jugador ha ganado, perdido o si el juego está en curso. Esto podría representarse como un valor o una variable que indica si el juego está en curso, ganado o perdido. 
+
+- Puntuación (opcional): Si deseas llevar un registro de la puntuación del jugador o implementar un sistema de puntaje, también debes incluir la puntuación en el estado del juego.
+***
+**El juego como recurso RESTful**
+
+Pregunta 
+
+**Enumera las acciones del jugador que podrían provocar cambios en el estado del juego.**
+
+1. Iniciar un nuevo juego 
+
+2. Realizar una suposición 
+
+3. Ver el estado actual del juego 
+
+4. Ganar el juego 
+
+5. Perder el juego 
+
+***
+Pregunta 
+
+**Para un buen diseño RESTful, ¿cuáles de las operaciones de recursos deberían ser manejadas por HTTP GET y cuáles deberían ser manejadas por HTTP POST?**
+
+HTTP GET: La operación "show" podría ser manejada por HTTP GET, ya que solo muestra el estado actual del juego sin realizar cambios en él. 
+
+HTTP POST: Las operaciones "create" y "guess" deberían ser manejadas por HTTP POST, ya que crean un nuevo juego o realizan una suposición que afecta el estado del juego. 
+
+Este diseño sigue los principios RESTful de usar HTTP GET para operaciones de lectura y HTTP POST para operaciones que cambian el estado del recurso. 
+***
+Preguntas 
+
+**¿Por qué es apropiado que la nueva acción utilice GET en lugar de POST?**
+**Explica por qué la acción GET /new no sería necesaria si tu juego Wordguesser fuera llamado como un servicio en una verdadera arquitectura orientada a servicios.**
+
+En el contexto de una acción "new" que crea un nuevo juego, es apropiado que utilice la solicitud HTTP GET en lugar de POST debido a la diferencia en la naturaleza de estas dos solicitudes HTTP: 
+
+GET se utiliza comúnmente para solicitar recursos o información del servidor sin modificar los datos en el servidor. En este caso, la acción "new" simplemente está solicitando la creación de un nuevo juego sin enviar datos que deban procesarse en el servidor. Es una solicitud segura e idempotente que no cambia el estado del servidor. 
+
+POST, por otro lado, se usa típicamente para enviar datos al servidor para su procesamiento y posiblemente modificar el estado del servidor. Usar POST para la acción "new" podría llevar a la creación accidental de múltiples juegos si el usuario actualiza la página después de enviar el formulario de creación. Además, podría generar problemas de seguridad si el juego se crea cada vez que se realiza una solicitud POST sin autenticación. 
+***
+
 ## Parte 3: Conexión de WordGuesserGame a Sinatra
 ***
 ## Parte 4: Cucumber
