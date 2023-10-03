@@ -10,7 +10,6 @@ class WordGuesserApp < Sinatra::Base
   
   before do
     @game = session[:game] || WordGuesserGame.new('')
-    @game_over = false
   end
   
   after do
@@ -46,10 +45,8 @@ class WordGuesserApp < Sinatra::Base
   
   get '/show' do
     if @game.check_win_or_lose == :win
-      @game_over = true
       redirect '/win'
     elsif @game.check_win_or_lose == :lose
-      @game_over = true
       redirect '/lose'
     else
       erb :show
@@ -57,18 +54,21 @@ class WordGuesserApp < Sinatra::Base
   end
   
   get '/win' do
-    if @game_over == false
+    if @game.check_win_or_lose == :win
+      erb :win
+    else
       flash[:message] = "No hagas trampa :3"
       redirect '/show'
     end
-    erb :win
   end
-  
+
   get '/lose' do
-    if @game_over == false
+    if @game.check_win_or_lose == :lose
+      erb :lose
+    else
+      flash[:message] = "Por qué quieres perder? :c"
       redirect '/show'
     end
-    erb :lose
   end
 end
 
