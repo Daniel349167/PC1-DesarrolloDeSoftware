@@ -118,8 +118,44 @@ Eliminamos :pending => true en cada especificacion (spec)
       expect(@game.wrong_guesses).to eq('')
     end
   end
-
+....
+Continúa el código
+....
 ```
+Inmediatamente Autotest reacciona y nos ejecuta esto:
+
+![image](https://github.com/Jxtrex/CC3S2-PC1/assets/90808325/82155eea-866e-4418-81f5-54e7060fb8ab)
+
+
+El bloque describe ‘new’ significa "el siguiente bloque de pruebas describe el comportamiento de una 'nueva' instancia de WordGuesserGame". La línea WordGuesserGame.new hace que se cree una nueva instancia y las siguientes líneas verifican la presencia y los valores de las variables de instancia. 
+
+***
+Preguntas 
+
+Según los casos de prueba, ¿cuántos argumentos espera el constructor de la clase de juegos (identifica la clase) y, por lo tanto, cómo será la primera línea de la definición del método que debes agregar a wordguesser_game.rb? 
+
+el constructor de la clase WordGuesserGame no espera ningún argumento, ya que en la prueba de "new", se crea una nueva instancia de WordGuesserGame de la siguiente manera: 
+
+```ruby
+@game = WordGuesserGame.new('glorp')
+```
+
+Sin embargo, para que el constructor no espere ningún argumento, debes modificar la definición del constructor en el archivo wordguesser_game.rb como se mencionó anteriormente: 
+
+```ruby
+def initialize 
+
+  # Código para inicializar las variables de instancia 
+
+end 
+```
+Esto garantiza que el constructor no espere ningún argumento al crear una nueva instancia de WordGuesserGame. 
+
+ ***
+
+Según las pruebas de este bloque describe, ¿qué variables de instancia se espera que tenga WordGuesserGame? 
+
+Se espera que las variables de instancia @word, @guesses, y @wrong_guesses existan y estén inicializadas correctamente cuando se crea una nueva instancia de WordGuesserGame. 
 ***
 ## Parte 2: RESTful para Wordguesser
 ***
