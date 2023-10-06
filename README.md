@@ -50,7 +50,7 @@ class MyApp < Sinatra::Base
     end
 end
 ```
-Para ejecutar la aplicación, tenemos que iniciar el servidor de aplicaciones y el servidor de nivel de presentación (web). El servidor de aplicaciones en rack está controlado por un archivo `config.ru`, que ahora debe crear y agregar al control de versiones, y que contiene lo siguiente:
+Para ejecutar la aplicación, tenemos que iniciar el servidor de aplicaciones y el servidor de nivel de presentación (web). El servidor de aplicaciones en rack está controlado por un archivo `config.ru`, y que contiene lo siguiente:
 ```Ruby
 require './app'
 
