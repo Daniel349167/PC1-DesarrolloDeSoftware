@@ -327,7 +327,7 @@ GET se utiliza comúnmente para solicitar recursos o información del servidor s
 POST, por otro lado, se usa típicamente para enviar datos al servidor para su procesamiento y posiblemente modificar el estado del servidor. Usar POST para la acción "new" podría llevar a la creación accidental de múltiples juegos si el usuario actualiza la página después de enviar el formulario de creación. Además, podría generar problemas de seguridad si el juego se crea cada vez que se realiza una solicitud POST sin autenticación. 
 ***
 
-## Parte 3: Conexión de WordGuesserGame a Sinatra
+# Parte 3: Conexión de WordGuesserGame a Sinatra
 
 **¿@game en este contexto es una variable de instancia de qué clase?**
 
