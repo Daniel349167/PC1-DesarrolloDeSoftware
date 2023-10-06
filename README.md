@@ -2,7 +2,7 @@
 ***
 ## Integrantes
 - Juan de Dios Fernando Lerzundi Ríos
-- José Daniel Zapata Anco
+- José Daniel Zapata Ancco
 - Omar Baldomero Vite Allca
 - Daniel Ureta Espinal
 ***
