@@ -154,13 +154,13 @@ El bloque describe ‘new’ significa "el siguiente bloque de pruebas describe 
 
 Según los casos de prueba, ¿cuántos argumentos espera el constructor de la clase de juegos (identifica la clase) y, por lo tanto, cómo será la primera línea de la definición del método que debes agregar a wordguesser_game.rb? 
 
-el constructor de la clase WordGuesserGame no espera ningún argumento, ya que en la prueba de "new", se crea una nueva instancia de WordGuesserGame de la siguiente manera: 
+El constructor de la clase WordGuesserGame no espera ningún argumento, ya que en la prueba de "new", se crea una nueva instancia de WordGuesserGame de la siguiente manera: 
 
 ```ruby
 @game = WordGuesserGame.new('glorp')
 ```
 
-Sin embargo, para que el constructor no espere ningún argumento, debes modificar la definición del constructor en el archivo wordguesser_game.rb como se mencionó anteriormente: 
+Sin embargo, para que el constructor no espere ningún argumento, se debe modificar la definición del constructor en el archivo wordguesser_game.rb: 
 
 ```ruby
 def initialize 
