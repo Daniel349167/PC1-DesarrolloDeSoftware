@@ -332,7 +332,8 @@ POST, por otro lado, se usa típicamente para enviar datos al servidor para su p
 **¿@game en este contexto es una variable de instancia de qué clase?**
 
 De la clase WordGuesserGame.
-![img.png](img.png)
+
+![img.png](Images/img.png)
 ***
 **¿Por qué esto ahorra trabajo en comparación con simplemente almacenar esos mensajes
 en el hash de `session[]`?**
@@ -353,8 +354,10 @@ Siendo `4000` el puerto que estamos usando.
 **¿Dónde está el código HTML de esta página?**
 
 En la carpeta `/views` en el archivo `show.erb`.
-![img_1.png](img_1.png)
-![img_2.png](img_2.png)
+
+![img_1.png](Images/img_1.png)
+
+![img_2.png](Images/img_2.png)
 ***
 ## Parte 4: Cucumber
 Cucumber es una herramienta extraordinaria para redactar pruebas de aceptación e integración de alto nivel.
