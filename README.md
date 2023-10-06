@@ -405,6 +405,8 @@ end
 ![img.png](Images/img.png)
 
 ***
+### La sesión
+
 Luego de establecer los estados necesarios para mantener el
 estado del juego y encapsularlos en la clase
 `WordGuesserGame`, necesitamos llevar la cuenta del
@@ -439,6 +441,14 @@ siguiente solicitud , a diferencia de `session[]` que lo mantiene disponible par
 se ajusta mejor a lo que queremos lograr.
 
 ***
+### Ejecutando la aplicación en Sinatra
+Ejecutamos el comando `bundle exec rackup port --4000` para iniciar
+nuestra aplicación. 
+
+![img.png](Images/img_4.png)
+
+![img.png](Images/img_5.png)
+
 **Según el resultado de ejecutar este comando, ¿Cuál es la URL completa que debes
 visitar para visitar la página New Game?**
 
@@ -448,11 +458,100 @@ Siendo `4000` el puerto que estamos usando.
 ***
 **¿Dónde está el código HTML de esta página?**
 
-En la carpeta `/views` en el archivo `show.erb`.
+En la carpeta `/views` en el archivo `new.erb`.
 
-![img_1.png](Images/img_1.png)
+![img.png](Images/img_1.png)
 
-![img_2.png](Images/img_2.png)
+### Funcionamiento
+Al ingresar a la **URL** previamente descrita nos encontramos
+con la pantalla principal del juego la cual
+se ejecuta debido al bloque de código siguiente:
+
+```Ruby
+get '/new' do
+erb :new
+end
+```
+
+La llamada `erb :new` nos lleva al archivo `new.erb` donde tenemos la estructura de la página
+principal y la acción que produce el apretar el botón
+**NEW GAME**.
+
+```HTML
+<form action="/create" method="post">
+  <div class="form-row py-3 border-top">
+    <input type="submit" value="New Game" class="col-md-2 offset-md-5 btn btn-primary form-control"/>
+  </div>
+</form>
+```
+La plantilla `new.erb` nos redirige a la ruta `/create` en donde
+se inicializa el estado del juego con la variable
+`@game`.
+
+```Ruby
+post '/create' do
+  word = params[:word] || WordGuesserGame.get_random_word
+  @game = WordGuesserGame.new(word)
+  redirect '/show'
+end
+```
+Esta ruta luego nos redirecciona a la ruta `/show`
+
+```Ruby
+get '/show' do
+  if @game.check_win_or_lose == :win
+    redirect '/win'
+  elsif @game.check_win_or_lose == :lose
+    redirect '/lose'
+  else
+    erb :show
+  end
+end
+```
+que finalmente llama a `erb :show`, la plantilla
+del juego principal, en donde se renderiza nuestro aplicación
+y podemos apreciar las adivinaciones
+del jugador, los mensajes que creamos con `flash[]` en 
+`<% if flash[:message]>` y las redirecciones a las rutas
+`/win` y `/lose` cuando se acabe el juego.
+```HTML
+<% if flash[:message] %>
+   <div class="alert alert-danger">
+     <span class="error"><%= flash[:message] %></span>
+   </div>
+<% end %>
+
+<div class="alert alert-warning">
+  <p class="lead">
+    Wrong Guesses:
+    <span class="guesses"><%= @game.wrong_guesses %></span>
+  </p>
+</div>
+
+<p class="alert alert-success">
+  Word so far:
+  <span class="word"><%= @game.word_with_guesses %></span>
+</p>
+
+<form action="/guess" method="post">
+  <div class="form-group row">
+    <label for="guess" class="col-md-2 col-form-label">Guess a letter:</label>
+    <input type="text" name="guess" autocomplete="off"
+           class="form-control col-md-1 mr-4"/>
+    <input type="submit" value="Guess!" class="col-md-2 btn btn-success"/>
+  </div>
+</form>
+
+<%= erb :new %>
+```
+
+
+
+
+
+
+
+
 ***
 ## Parte 4: Cucumber
 Cucumber es una herramienta extraordinaria para redactar pruebas de aceptación e integración de alto nivel.
