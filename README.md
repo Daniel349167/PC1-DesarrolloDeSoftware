@@ -28,7 +28,7 @@ bundle install
 ***
 **1. ¿Cuál es la diferencia entre el propósito y el contenido de `Gemfile` y `Gemfile.lock`?**
 
-En estos archivos es donde se encuentran las dependencias, el principal propósito tanto de Gemfile como de Gemfile.lock es asegurar la consistencia en las versiones de las dependencias y proporcionar un entorno de desarrollo coherente.
+El Gemfile especifica las gemas y versiones que el proyecto requiere, definiendo las dependencias de alto nivel. Por otro lado, el Gemfile.lock detalla las versiones exactas de esas gemas y todas sus subdependencias, con el propósito de asegurar que se use la misma versión de cada gema en todos los entornos, garantizando así una consistencia en el proyecto.
 
 **2. ¿Qué archivo se necesita para reproducir completamente las gemas del entorno de desarrollo en el entorno de producción?**
 
