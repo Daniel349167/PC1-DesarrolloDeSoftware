@@ -327,11 +327,78 @@ GET se utiliza comúnmente para solicitar recursos o información del servidor s
 POST, por otro lado, se usa típicamente para enviar datos al servidor para su procesamiento y posiblemente modificar el estado del servidor. Usar POST para la acción "new" podría llevar a la creación accidental de múltiples juegos si el usuario actualiza la página después de enviar el formulario de creación. Además, podría generar problemas de seguridad si el juego se crea cada vez que se realiza una solicitud POST sin autenticación. 
 ***
 
-# Parte 3: Conexión de WordGuesserGame a Sinatra
+## Parte 3: Conexión de WordGuesserGame a Sinatra
+Luego de haber establecido los principales estados del juego pasaremos a la
+implementación de la app en el navegador. Es en este paso en el que veremos
+el primer prototipo funcional del programa.
+
+* Usamos `before do...end` y `after do...end` para ejecutar un bloque de código
+  antes y después de cada solicitud.
+
+Adicionalmente, las variables de instancia que hayan sido definidas
+dentro de estos filtros podrán ser usadas por **rutas** y **plantillas**.
+```Ruby
+before do
+  @note = 'Hi!'
+  request.path_info = '/foo/bar/baz'
+end
+
+get '/foo/*' do
+  @note #=> 'Hi!'
+  params['splat'] #=> 'bar/baz'
+end
+```
+Estos filtros se ejecutan en el mismo contexto
+de las rutas que preceden y pueden modificar la solicitud y su respuesta.
+
+Los filtros `after do`, que son evaluados después de cada solicitud
+, pueden acceder a las variables de instancia definidas en rutas o en
+filtros `before do`
+```Ruby
+after do
+  puts response.status
+end
+```
+
+* Las llamadas `erb : action` son las que nos permitirán trasladar
+  nuestra app al navegador a través de llamadas a plantillas o vistas.
+```Ruby
+get '/' do
+  erb :index
+end
+#Llamada a la plantilla :index dentro de views/
+```
+Luego de llamar a `erb : action` Sinatra buscará en los archivos
+`.erb` de la carpeta `/views` la acción correspondiente y , a través del procesador
+Ruby integrado, buscará construcciones del tipo `<%= like this%>` y
+ejecutará el comando que está adentro.
+
+* También podemos pasar el contenido de la plantilla directamente.
+
+```Ruby
+get '/' do
+  code = "<%= Time.now %>"
+  erb code
+end
+```
+***
+En `app.rb` usamos `before do` y `after do` para almacenar el estado del
+juego al momento de empezar y luego de cada solicitud por si
+varia su valor.
+
+```Ruby
+before do
+    @game = session[:game] || WordGuesserGame.new('')
+  end
+  
+after do
+  session[:game] = @game
+end
+```
 
 **¿@game en este contexto es una variable de instancia de qué clase?**
 
-De la clase WordGuesserGame.
+`De la clase WordGuesserGame.`
 
 ![img.png](Images/img.png)
 ***
