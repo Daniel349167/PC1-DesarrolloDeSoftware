@@ -63,12 +63,8 @@ bundle exec rackup --port 3000
 ***
 **4. ¿Qué sucede si intentas visitar una URL no raíz cómo https://localhost:3000/hello y por qué la raíz de tu URL variará?**
 
-Al intentar vistar https://localhost:3000/hello estoy accediendo a la ruta '/hello' la cual no ha sido definida en el código, solo la ruta raiz '/':
-```Ruby
-get '/' do
-  "<!DOCTYPE html><html><head></head><body><h1>Hello World</h1></body></html>"
-end
-```
+Al acceder a https://localhost:3000/hello, recibirás un error indicando que la ruta no fue encontrada. Esto se debe a que en el código sólo se ha definido una acción para la ruta raíz ('/'). La ruta /hello no ha sido especificada en el código, por lo que Sinatra no sabe cómo manejar esa solicitud y, como resultado, devuelve un error "Not Found" (No Encontrado)
+
 ***
 - Modifica app.rb para que en lugar de "Hello world" imprime "Goodbye world"
 >Si modificas tu aplicación mientras se está ejecutando, debes reiniciar 
