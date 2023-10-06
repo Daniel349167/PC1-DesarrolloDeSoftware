@@ -328,6 +328,33 @@ POST, por otro lado, se usa típicamente para enviar datos al servidor para su p
 ***
 
 ## Parte 3: Conexión de WordGuesserGame a Sinatra
+
+**¿@game en este contexto es una variable de instancia de qué clase?**
+
+De la clase WordGuesserGame.
+![img.png](img.png)
+***
+**¿Por qué esto ahorra trabajo en comparación con simplemente almacenar esos mensajes
+en el hash de `session[]`?**
+
+Al usar `flash[]` nuestro mensaje solo persiste durante el procesamiento de la
+siguiente solicitud de la sesión, a diferencia
+de `session[]` que lo mantiene disponible para todas las solicitudes, el primer comportamiento
+se ajusta mejor a lo que queremos lograr.
+
+***
+**Según el resultado de ejecutar este comando, ¿Cuál es la URL completa que debes
+visitar para visitar la página New Game?**
+
+`http://127.0.0.1:4000/new`
+Siendo `4000` el puerto que estamos usando.
+
+***
+**¿Dónde está el código HTML de esta página?**
+
+En la carpeta `/views` en el archivo `show.erb`.
+![img_1.png](img_1.png)
+![img_2.png](img_2.png)
 ***
 ## Parte 4: Cucumber
 Cucumber es una herramienta extraordinaria para redactar pruebas de aceptación e integración de alto nivel.
