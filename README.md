@@ -88,19 +88,19 @@ bundle exec rerun -- rackup --port 3000
 - Haz modificaciones en app.rb y refresca la pestaña del navegador donde se está ejecutando tu aplicación para ver los cambios en tiempo real.
 ***
 **Despliegue en Heroku**
-a. Instala Heroku CLI y accede a tu cuenta: 
+- Instala Heroku CLI y accede a tu cuenta: 
 ```shell
 heroku login -i
 ```
-b. En el directorio raíz de tu proyecto, crea un nuevo proyecto en Heroku:
+- En el directorio raíz de tu proyecto, crea un nuevo proyecto en Heroku:
 ```shell
 heroku create
 ```
-c. Crea un Procfile para decirle a Heroku cómo iniciar tu aplicación. Añade la siguiente línea:
+- Crea un Procfile para decirle a Heroku cómo iniciar tu aplicación. Añade la siguiente línea:
 ```shell
 web: bundle exec rackup config.ru -p $PORT
 ```
-d. Ahora estás listo para desplegar en Heroku:
+- Ahora estás listo para desplegar en Heroku:
 ```shell
 git push heroku master
 ```
