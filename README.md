@@ -322,6 +322,8 @@ Preguntas
 
 En el contexto de una acción "new" que crea un nuevo juego, es apropiado que utilice la solicitud HTTP GET en lugar de POST debido a la diferencia en la naturaleza de estas dos solicitudes HTTP: 
 
+En un juego como Wordguesser, la creación de un nuevo juego podría no requerir una ruta /new como en una aplicación monolítica. En lugar de eso, en una arquitectura orientada a servicios, podrías tener un servicio independiente llamado "GameService" que se encargue de la gestión de juegos. Los clientes que deseen iniciar un nuevo juego podrían enviar una solicitud a este servicio, que podría ser una operación POST en una ruta como /games.
+
 GET se utiliza comúnmente para solicitar recursos o información del servidor sin modificar los datos en el servidor. En este caso, la acción "new" simplemente está solicitando la creación de un nuevo juego sin enviar datos que deban procesarse en el servidor. Es una solicitud segura e idempotente que no cambia el estado del servidor. 
 
 POST, por otro lado, se usa típicamente para enviar datos al servidor para su procesamiento y posiblemente modificar el estado del servidor. Usar POST para la acción "new" podría llevar a la creación accidental de múltiples juegos si el usuario actualiza la página después de enviar el formulario de creación. Además, podría generar problemas de seguridad si el juego se crea cada vez que se realiza una solicitud POST sin autenticación. 
