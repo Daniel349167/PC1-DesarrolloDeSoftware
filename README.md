@@ -50,13 +50,15 @@ class MyApp < Sinatra::Base
     end
 end
 ```
-Para ejecutar la aplicación, tenemos que iniciar el servidor de aplicaciones y el servidor de nivel de presentación (web). El servidor de aplicaciones en rack está controlado por un archivo `config.ru`, y que contiene lo siguiente:
+Para ejecutar la aplicación, necesitamos iniciar un servidor que pueda manejar tanto las solicitudes web como la ejecución de nuestra aplicación Ruby. Utilizaremos rackup, que por defecto inicia el servidor WEBrick y lo configura para ejecutar aplicaciones basadas en la interfaz Rack.
+
+El comportamiento de nuestra aplicación está definido en el archivo config.ru, que contiene lo siguiente:
 ```Ruby
 require './app'
 
 run MyApp
 ```
-- Iniciamos el servidor de aplicaciones Rack y el servidor web WEBrick
+- Para iniciar nuestra aplicación junto con el servidor WEBrick, ejecuta:
 ```shell
 bundle exec rackup --port 3000
 ```
