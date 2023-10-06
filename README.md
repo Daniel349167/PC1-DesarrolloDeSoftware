@@ -26,15 +26,15 @@ git init
 bundle install
 ```
 ***
-**¿Cuál es la diferencia entre el propósito y el contenido de `Gemfile` y `Gemfile.lock`?**
+**1. ¿Cuál es la diferencia entre el propósito y el contenido de `Gemfile` y `Gemfile.lock`?**
 
 En estos archivos es donde se encuentran las dependencias, el principal propósito tanto de Gemfile como de Gemfile.lock es asegurar la consistencia en las versiones de las dependencias y proporcionar un entorno de desarrollo coherente.
 
-**¿Qué archivo se necesita para reproducir completamente las gemas del entorno de desarrollo en el entorno de producción?**
+**2. ¿Qué archivo se necesita para reproducir completamente las gemas del entorno de desarrollo en el entorno de producción?**
 
 Para reproducir en su totalidad las gemas necesitamos del archivo Gemfile.lock en el que se especifican detalladamente las dependencias y es el encargado junto a bundle de instalar las mismas versiones de las gemas en el servidor de producción.
 
-**Después de ejecutar el bundle, ¿Por qué aparecen gemas en `Gemfile.lock` que no estaban en `Gemfile`?**
+**3. Después de ejecutar el bundle, ¿Por qué aparecen gemas en `Gemfile.lock` que no estaban en `Gemfile`?**
 
 Esto generalmente sucede por que algunas gemas tienen subdependencias las cuales tambien son instaladas indirectamente por bundle. Como en nuestro ejemplo rack es una dependencia de sinatra mas no vemos rack en nuestro gemfile.
 
@@ -61,7 +61,7 @@ run MyApp
 bundle exec rackup --port 3000
 ```
 ***
-**¿Qué sucede si intentas visitar una URL no raíz cómo https://localhost:3000/hello y por qué la raíz de tu URL variará?**
+**4. ¿Qué sucede si intentas visitar una URL no raíz cómo https://localhost:3000/hello y por qué la raíz de tu URL variará?**
 
 Al intentar vistar https://localhost:3000/hello estoy accediendo a la ruta '/hello' la cual no ha sido definida en el código, solo la ruta raiz '/':
 ```Ruby
@@ -79,6 +79,30 @@ Rack para que "veas" esos cambios
 group :development do
   gem 'rerun'
 end
+```
+-  Ejecuta `bundle install`.
+Para iniciar tu aplicación y comprobar que está ejecutándose con reinicio automático, usa el siguiente comando:
+```shell
+bundle exec rerun -- rackup --port 3000
+```
+- Haz modificaciones en app.rb y refresca la pestaña del navegador donde se está ejecutando tu aplicación para ver los cambios en tiempo real.
+***
+**Despliegue en Heroku**
+a. Instala Heroku CLI y accede a tu cuenta: 
+```shell
+heroku login -i
+```
+b. En el directorio raíz de tu proyecto, crea un nuevo proyecto en Heroku:
+```shell
+heroku create
+```
+c. Crea un Procfile para decirle a Heroku cómo iniciar tu aplicación. Añade la siguiente línea:
+```shell
+web: bundle exec rackup config.ru -p $PORT
+```
+d. Ahora estás listo para desplegar en Heroku:
+```shell
+git push heroku master
 ```
 ***
 ## Parte 1: Wordguesser
