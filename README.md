@@ -385,8 +385,8 @@ end
 ```
 ***
 En `app.rb` usamos `before do` y `after do` para almacenar el estado del
-juego al momento de empezar y luego de cada solicitud por si
-varia su valor.
+juego al momento de empezar y luego de cada solicitud para actulizarlo.
+
 
 ```Ruby
 before do
@@ -403,13 +403,39 @@ end
 `De la clase WordGuesserGame.`
 
 ![img.png](Images/img.png)
+
 ***
+Luego de establecer los estados necesarios para mantener el
+estado del juego y encapsularlos en la clase
+`WordGuesserGame`, necesitamos llevar la cuenta del
+estado del juego entre cada solicitud, al comienzo
+y al final de este. 
+
+Dado que nuestro juego es muy pequeño podemos
+evitar el implementar una base de datos para registrar
+los distintos estados del juego y en su lugar
+podemos usar el hash `session[]` de la librería **Sinatra**. 
+
+![img.png](Images/img_3.png)
+
+Ahora podemos almacenar estados del juego que estén disponibles
+para cada solicitud. 
+
+Adicionalmente, aparte de los estados del juego,
+también queremos proporcionar mensajes para acciones importantes
+del juego como mostrar un mensaje que diga "Adivinación Incorrecta",
+
+Para este caso usaremos el hash `flash[]` también de la librería **Sinatra**.
+Este hash emula el comportamiento del hash `flash[]` de **Rails**, nos permite 
+nos permite compartir mensajes entre acciones. El valor que pasemos
+a `flash[]` estará disponible para la siguiente solicitud y luego
+será desechada.
+
 **¿Por qué esto ahorra trabajo en comparación con simplemente almacenar esos mensajes
 en el hash de `session[]`?**
 
 Al usar `flash[]` nuestro mensaje solo persiste durante el procesamiento de la
-siguiente solicitud de la sesión, a diferencia
-de `session[]` que lo mantiene disponible para todas las solicitudes, el primer comportamiento
+siguiente solicitud , a diferencia de `session[]` que lo mantiene disponible para todas las solicitudes, el primer comportamiento
 se ajusta mejor a lo que queremos lograr.
 
 ***
