@@ -1,5 +1,6 @@
 # PRESENTACION
-[![Presentacion](https://github.com/Jxtrex/CC3S2-PC1/assets/59848543/517b4f4a-4f0e-47f4-bbb7-5fcca3eb8523)](https://drive.google.com/file/d/1BLUNBG8KkMiUtJP4BhUlQYOFxSzOO9MY/view?usp=sharing&classId=a1bdca4c-128c-4417-a816-076ce4107fd5&assignmentId=19829fd2-e636-4bd7-a6be-f40123f620ff&submissionId=d90d1f1a-8eff-67e2-566a-ae57bc160f6d)
+[![Presentación]({[image-url](https://user-images.githubusercontent.com/59848543/273363747-517b4f4a-4f0e-47f4-bbb7-5fcca3eb8523.jpeg)})]({[video-url](https://unipe-my.sharepoint.com/:i:/g/personal/juan_lerzundi_r_uni_pe/EZ4_ncTZoUVBoZdcAnVi2GUBcRjsvvC2MvWYjEDHZ6KhHA?e=pXvKdd)} "Presentación")
+
 ***
 # PC1
 ***
