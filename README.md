@@ -1,5 +1,6 @@
 # PRESENTACION
-[![Presentación]({[image-url](https://user-images.githubusercontent.com/59848543/273363747-517b4f4a-4f0e-47f4-bbb7-5fcca3eb8523.jpeg)})]({[video-url](https://unipe-my.sharepoint.com/:i:/g/personal/juan_lerzundi_r_uni_pe/EZ4_ncTZoUVBoZdcAnVi2GUBcRjsvvC2MvWYjEDHZ6KhHA?e=pXvKdd)} "Presentación")
+[![Presentación]({https://user-images.githubusercontent.com/59848543/273363747-517b4f4a-4f0e-47f4-bbb7-5fcca3eb8523.jpeg})]({https://unipe-my.sharepoint.com/:i:/g/personal/juan_lerzundi_r_uni_pe/EZ4_ncTZoUVBoZdcAnVi2GUBcRjsvvC2MvWYjEDHZ6KhHA?e=pXvKdd} "Presentación")
+
 
 ***
 # PC1
