@@ -404,7 +404,7 @@ end
 
 `De la clase WordGuesserGame.`
 
-![img.png](Images/img.png)
+![img_4.png](img_4.png)
 
 ***
 ### La sesión
@@ -420,7 +420,7 @@ evitar el implementar una base de datos para registrar
 los distintos estados del juego y en su lugar
 podemos usar el hash `session[]` de la librería **Sinatra**. 
 
-![img.png](Images/img_3.png)
+![img_6.png](img_6.png)
 
 Ahora podemos almacenar estados del juego que estén disponibles
 para cada solicitud. 
@@ -447,9 +447,9 @@ se ajusta mejor a lo que queremos lograr.
 Ejecutamos el comando `bundle exec rackup port --4000` para iniciar
 nuestra aplicación. 
 
-![img.png](Images/img_4.png)
+![img_7.png](img_7.png)
 
-![img.png](Images/img_5.png)
+![img_8.png](img_8.png)
 
 **Según el resultado de ejecutar este comando, ¿Cuál es la URL completa que debes
 visitar para visitar la página New Game?**
@@ -462,7 +462,7 @@ Siendo `4000` el puerto que estamos usando.
 
 En la carpeta `/views` en el archivo `new.erb`.
 
-![img.png](Images/img_1.png)
+![img_9.png](img_9.png)
 
 ### Funcionamiento
 Al ingresar a la **URL** previamente descrita nos encontramos
