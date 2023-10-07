@@ -1,9 +1,13 @@
 # PRESENTACION
-[<img src="https://github.com/Jxtrex/CC3S2-PC1/assets/59848543/62d24b01-6563-479f-a80b-03fea36be797" width="100%">](https://drive.google.com/file/d/1BLUNBG8KkMiUtJP4BhUlQYOFxSzOO9MY/view?usp=sharing&classId=a1bdca4c-128c-4417-a816-076ce4107fd5&assignmentId=19829fd2-e636-4bd7-a6be-f40123f620ff&submissionId=d90d1f1a-8eff-67e2-566a-ae57bc160f6d "Presentación")
+
+
+[<img src="https://github.com/Jxtrex/CC3S2-PC1/assets/59848543/8b544f77-b65f-4ecc-8abc-c5cada5afbf0">](https://drive.google.com/file/d/1BLUNBG8KkMiUtJP4BhUlQYOFxSzOO9MY/view?usp=sharing&classId=a1bdca4c-128c-4417-a816-076ce4107fd5&assignmentId=19829fd2-e636-4bd7-a6be-f40123f620ff&submissionId=d90d1f1a-8eff-67e2-566a-ae57bc160f6d)
 
 ***
+
 # PC1
 ***
+
 ## Integrantes
 - Juan de Dios Fernando Lerzundi Ríos
 - José Daniel Zapata Ancco
